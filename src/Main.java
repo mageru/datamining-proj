@@ -23,7 +23,7 @@ public class Main {
             e.printStackTrace();
         }
         AlgoEclat algo = new AlgoEclat();
-        algo.runAlgorithm("output_eclat.txt", database, .2, false);
+        algo.runAlgorithm("output_eclat.txt", database, .2);
         algo.printStats();
     }
 }

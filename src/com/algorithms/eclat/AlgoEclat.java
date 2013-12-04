@@ -1,20 +1,4 @@
 package com.algorithms.eclat;
-/* This file is copyright (c) 2008-2013 Philippe Fournier-Viger
-* 
-* This file is part of the SPMF DATA MINING SOFTWARE
-* (http://www.philippe-fournier-viger.com/spmf).
-* 
-* SPMF is free software: you can redistribute it and/or modify it under the
-* terms of the GNU General Public License as published by the Free Software
-* Foundation, either version 3 of the License, or (at your option) any later
-* version.
-* 
-* SPMF is distributed in the hope that it will be useful, but WITHOUT ANY
-* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
-* A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-* You should have received a copy of the GNU General Public License along with
-* SPMF. If not, see <http://www.gnu.org/licenses/>.
-*/
 
 
 import java.io.BufferedWriter;
@@ -27,24 +11,20 @@ import java.util.Map.Entry;
 public class AlgoEclat {
 
     // parameters
-    private int minsupRelative;  // relative minimum support
-    private TransactionDatabase database; // the transaction database
+    private int minsupRelative;  
+    private TransactionDatabase database; 
 
     // for statistics
-    private long startTimestamp; // start time of the last execution
-    private long endTime; // end  time of the last execution
+    private long startTimestamp; 
+    private long endTime; 
 
     // results
-    // The  patterns that are found
-    // (if the user want to keep them into memory)
     protected Itemsets frequentItemsets;
     BufferedWriter writer = null; // object to write the output file
     private int itemsetCount; // the number of patterns found
 
 
-    /**
-     * Default constructor
-     */
+    
     public AlgoEclat() {
 
     }
@@ -61,8 +41,7 @@ public class AlgoEclat {
      * @return the result
      * @throws java.io.IOException exception if error while writing the file.
      */
-    public Itemsets runAlgorithm(String output, TransactionDatabase database, double minsupp,
-                                 boolean useTriangularMatrixOptimization) throws IOException {
+    public Itemsets runAlgorithm(String output, TransactionDatabase database, double minsupp) throws IOException {
 
         // if the user want to keep the result into memory
         if (output == null) {
@@ -85,9 +64,6 @@ public class AlgoEclat {
         // by the database size
         this.minsupRelative = (int) Math.ceil(minsupp * database.size());
 
-        // save the user preference about using the triangular matrix
-        // optimization or not
-
         // A set that will contains all transactions IDs
         Set<Integer> allTIDS = new HashSet<Integer>();
 
@@ -108,8 +84,7 @@ public class AlgoEclat {
                 if (set == null) {
                     set = new HashSet<Integer>();
                     mapItemCount.put(item, set);
-                    // if the current item is larger than all items until
-                    // now, remember that!
+                    // if the current item is larger than all items until                    
                     if (item > maxItemId) {
                         maxItemId = item;
                     }
@@ -117,10 +92,7 @@ public class AlgoEclat {
                 set.add(i); // add tid to the tidset of the item
             }
         }
-
-        // if the user chose to use the triangular matrix optimization
-        // for containing the support of itemsets of size 2.
-
+        
         // (2) create ITSearchTree with root node
         ITSearchTree tree = new ITSearchTree();
         // add the empty set
