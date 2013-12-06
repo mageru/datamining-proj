@@ -1,3 +1,4 @@
+import com.algorithms.eclat.AlgoCharm;
 import com.algorithms.eclat.AlgoEclat;
 import com.algorithms.eclat.TransactionDatabase;
 import com.algorithms.fpgrowth.AlgoFPGrowth_Strings;
@@ -18,12 +19,22 @@ public class Main {
 
         TransactionDatabase database = new TransactionDatabase();
         try {
-            database.loadFile(".\\data\\testdata1.txt");
+            database.loadFile(".\\data\\testdata2.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
         AlgoEclat algo = new AlgoEclat();
         algo.runAlgorithm("output_eclat.txt", database, .2);
         algo.printStats();
+        
+        TransactionDatabase databaseCharm = new TransactionDatabase();
+        try {
+            databaseCharm.loadFile(".\\data\\testdata2.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AlgoCharm algo2 = new AlgoCharm();
+        algo2.runAlgorithm("output_eclatcharm.txt", databaseCharm, 10000000, .2, false);
+        algo2.printStats();
     }
 }
